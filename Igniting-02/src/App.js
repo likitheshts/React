@@ -3,6 +3,54 @@ import ReactDOM, { createRoot } from "react-dom/client";
 import HeaderComponent from "./components/Header";
 import Body from "./components/Body";
 import Footer from "./components/Footer";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import About from "./components/About";
+import Error from "./components/Error";
+import Contact from "./components/Contact";
+import RestroMenu from "./components/RestroDetails";
+import Login from "./components/Login";
+
+const AppLayout = () => {
+  return (
+    <>
+      <HeaderComponent />
+      <Outlet />
+      <Footer />
+    </>
+  );
+};
+const appRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <AppLayout />,
+    errorElement: <Error />,
+    children: [
+      {
+        path: "/",
+        element: <Body />,
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+      {
+        path: "/restaurant/:id",
+        element: <RestroMenu />,
+      },
+    ],
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+]);
+
+const root1 = ReactDOM.createRoot(document.getElementById("root"));
+root1.render(<RouterProvider router={appRouter} />);
 
 // const heading = React.createElement(
 //   "h1",
@@ -22,10 +70,10 @@ import Footer from "./components/Footer";
 // );
 // console.log(heading);
 
-//functional components
+// functional components
 
 // const HeadingComponent = () => {
-//   return <h4>Helo I'm functional Components</h4>;
+// return <h4>Helo I'm functional Components</h4>;
 // };
 
 // const AppLayout = () => {
@@ -49,14 +97,3 @@ import Footer from "./components/Footer";
 //      */
 //   };
 // };
-const AppLayout = () => {
-  return (
-    <>
-      <HeaderComponent />
-      <Body />
-      <Footer />
-    </>
-  );
-};
-const root1 = ReactDOM.createRoot(document.getElementById("root"));
-root1.render(<AppLayout />);
