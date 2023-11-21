@@ -3,7 +3,7 @@ import React from "react";
 class ProfileClass extends React.Component {
   constructor(props) {
     super(props);
-
+    //console.log(this.props.name);
     this.state = {
       userInfo: {
         name: "",

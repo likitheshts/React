@@ -2,6 +2,7 @@ import React from "react";
 import { Formik } from "formik"; // import Formik from formik
 import * as Yup from "yup"; // import Yup from yup
 import { useNavigate } from "react-router-dom";
+import useLocalStorage from "../utils/useLocalStorage";
 
 // create a schema for validation
 const schema = Yup.object().shape({
@@ -15,15 +16,26 @@ const schema = Yup.object().shape({
 
 const Login = () => {
   const navigate = useNavigate();
+  const [getLocalStorage, setLocalStorage] = useLocalStorage("user");
 
   function handleNavigate(values) {
-    // Alert the input values of the form that we filled
-    alert(values);
-    // setTimeout for navigate from login page to home page
-    setTimeout(() => {
-      navigate("/");
-    }, 0);
+    //console.log(values.email);
+    let index = values?.email.indexOf("@");
+    let name = values?.email.slice(0, index);
+
+    const genRandomStringNthChar = () => {
+      return [...Array(100)].map(() => Math.random().toString(36)[2]).join("");
+    };
+
+    setLocalStorage({
+      ...getLocalStorage,
+      username: name,
+      token: genRandomStringNthChar(),
+    });
+    navigate("/");
   }
+
+  if (getLocalStorage?.token?.length === 100) return null;
   return (
     <>
       {/* Wrapping form inside formik tag and passing our schema to validationSchema prop */}
@@ -31,8 +43,8 @@ const Login = () => {
         validationSchema={schema}
         initialValues={{ email: "", password: "" }}
         onSubmit={(values) => {
-          // call handleNavigate and pass input filed data
-          handleNavigate(JSON.stringify(values));
+          //console.log(values);
+          handleNavigate(values);
         }}
       >
         {({
