@@ -2,7 +2,9 @@ import { ShimmerSimpleGallery } from "react-shimmer-effects";
 
 const Shimmer = () => {
   return (
-    <ShimmerSimpleGallery card imageHeight={200} row={5} col={4} caption />
+    <div data-testid="shimmer">
+      <ShimmerSimpleGallery card imageHeight={200} row={5} col={4} caption />
+    </div>
   );
 };
 export default Shimmer;

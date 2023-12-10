@@ -46,7 +46,7 @@ const Body = () => {
       setRestaurants(resData);
       setfilteredRestro(resData);
     } catch (error) {
-      console.log(console.error());
+      //console.log(console.error());
     }
   }
 
@@ -76,6 +76,7 @@ const Body = () => {
                 const data = filterData(searchTxt, restaurants);
                 setfilteredRestro(data);
               }}
+              data-testid="search"
             >
               Search
             </button>

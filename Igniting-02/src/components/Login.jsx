@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Formik } from "formik"; // import Formik from formik
 import * as Yup from "yup"; // import Yup from yup
 import { useNavigate } from "react-router-dom";
 import useLocalStorage from "../utils/useLocalStorage";
+import UserContext from "../utils/UserContext";
 
 // create a schema for validation
 const schema = Yup.object().shape({
@@ -17,7 +18,8 @@ const schema = Yup.object().shape({
 const Login = () => {
   const navigate = useNavigate();
   const [getLocalStorage, setLocalStorage] = useLocalStorage("user");
-
+  // const { user, setUserNameFun } = useContext(UserContext);
+  console.log(setUserNameFun);
   function handleNavigate(values) {
     //console.log(values.email);
     let index = values?.email.indexOf("@");
@@ -26,12 +28,13 @@ const Login = () => {
     const genRandomStringNthChar = () => {
       return [...Array(100)].map(() => Math.random().toString(36)[2]).join("");
     };
-
+    const tokenValue = genRandomStringNthChar();
     setLocalStorage({
       ...getLocalStorage,
       username: name,
-      token: genRandomStringNthChar(),
+      token: tokenValue,
     });
+
     navigate("/");
   }
 

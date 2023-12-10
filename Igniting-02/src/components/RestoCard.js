@@ -5,7 +5,7 @@ const RestoCard = ({
   cuisines,
   cloudinaryImageId,
   avgRating,
-  locality,
+  areaName,
   costForTwo,
 }) => {
   return (
@@ -26,7 +26,7 @@ const RestoCard = ({
           >
             {avgRating}
           </span>
-          <span>{locality}</span>
+          <span>{areaName}</span>
           <span>{costForTwo}</span>
         </div>
       </div>
